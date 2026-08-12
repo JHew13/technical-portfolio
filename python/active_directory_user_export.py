@@ -8,10 +8,6 @@
 # and Active Directory distinguished names have been replaced with placeholders.
 # Original code structure and formatting have otherwise been preserved.
 
-#Install python from website
-#---https://www.python.org/downloads/  (I am using python 2.7 I am not sure if this will work with the latest)
-#---Warning: Python is extremely picky with placement of code. Spaces and tabs could cause errors.
-
 #---List of installs by cmd prompt
 #---pip install sqlalchemy
 #---pip install numpy
@@ -27,14 +23,6 @@
 #---numpy: https://numpy.org/
 #---pyodbc: https://www.easysoft.com/developer/languages/python/pyodbc.html
 
-#---adding different directories
-#---You have to create a new instance with light weight active direcotry services.
-#---Use nltest /dclist:<INTERNAL_DOMAIN> in cmd prompt, change <INTERNAL_DOMAIN> to any other domain you need listed.. This will provide you with a list of domain controllers.
-#---Then type nslookup & press enter Then type set type=all
-#---Then type this and change domainname.com to match one of the servers above _ldap._tcp.dc._msdcs.<INTERNAL_DOMAIN>
-#--- example _ldap._tcp.dc.__msdcs.<INTERNAL_DOMAIN>
-
-#--------------------***TO RUN PROGRAM*** Open cmd prompt and type: python ad_xray_insert.py if all above was installed correctly then no errors will display in the cmd screen.
 
 #--imports for code to function properly DO NOT DELETE---
 import sys
