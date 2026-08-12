@@ -1,0 +1,11 @@
+# Representative dependencies used by the Python portfolio samples.
+# Versions are intentionally not pinned because the original internal runtime is not included.
+pandas
+numpy
+selenium
+openpyxl
+sqlalchemy
+pyodbc
+ldap3
+tzlocal
+python-dateutil

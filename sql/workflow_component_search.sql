@@ -1,9 +1,17 @@
 -- Workflow Component Search
--- Finds workflows using a selected UI component and traces related configuration data.
+-- Identifies current workflows that contain a selected application component.
 --
--- Portfolio note: This public sample is based on code I originally wrote for an
--- internal business tool. Proprietary names, endpoints, identifiers, sample data,
--- and environment-specific values have been replaced with generic equivalents.
+-- Portfolio note:
+-- This is a sanitized public sample based on SQL I originally wrote for an internal
+-- business system. Proprietary schema names, workflow names, identifiers, and business-
+-- specific values have been replaced with generic equivalents.
+--
+-- Key concepts demonstrated:
+-- - current-revision filtering
+-- - component/configuration tracing
+-- - multi-table joins
+-- - application configuration analysis
+
 -- This query finds the latest version of each workflow and shows where a specific
 -- UI component is being used. I used this when I needed to trace a component
 -- across workflows without pulling back older revisions.

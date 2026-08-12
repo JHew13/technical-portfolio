@@ -1,9 +1,17 @@
 -- Linked Workflow Search
--- Troubleshooting query for tracing parent/linked workflow relationships and latest revisions.
+-- Finds where a workflow links to other workflows and supports reversing the relationship search.
 --
--- Portfolio note: This public sample is based on code I originally wrote for an
--- internal business tool. Proprietary names, endpoints, identifiers, sample data,
--- and environment-specific values have been replaced with generic equivalents.
+-- Portfolio note:
+-- This is a sanitized public sample based on SQL I originally wrote for an internal
+-- business system. Proprietary schema names, workflow names, identifiers, and business-
+-- specific values have been replaced with generic equivalents.
+--
+-- Key concepts demonstrated:
+-- - latest-revision logic
+-- - parent/child relationship tracing
+-- - complex joins
+-- - bidirectional troubleshooting
+
 -- Search value used to find a workflow by name.
 -- I use wildcards here so I can search using only part of the workflow name.
 DECLARE @searchTerm varchar(255)

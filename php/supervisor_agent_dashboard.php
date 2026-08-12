@@ -1,19 +1,18 @@
 <?php
 /*
  * Supervisor Agent Dashboard
- * Internal dashboard that retrieves and presents individual employee operational data.
+ * Retrieves and presents individual employee operational data through a database-driven web interface.
  *
  * Portfolio note:
- * This public sample is based on code I originally wrote for an internal business tool.
- * Proprietary names, endpoints, identifiers, sample data, and environment-specific
- * values have been replaced with generic equivalents.
- */
-
-/*
- * SANITIZED PORTFOLIO SAMPLE
- * Original business-specific identifiers, internal paths, table names,
- * system acronyms, and endpoint names have been replaced with generic terms.
- * No credentials or production connection details are included in this file.
+ * This is a sanitized public sample based on code I originally wrote for an internal
+ * business application. Proprietary names, credentials, endpoints, identifiers, and
+ * business-specific values have been replaced with generic equivalents.
+ *
+ * Key concepts demonstrated:
+ * - PHP backend logic
+ * - SQL-driven reporting
+ * - filtering and dynamic presentation
+ * - internal dashboard development
  */
 ?>
 

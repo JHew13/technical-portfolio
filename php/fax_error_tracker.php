@@ -4,16 +4,17 @@
  * Database-backed web application for capturing, searching, and maintaining operational error records.
  *
  * Portfolio note:
- * This public sample is based on code I originally wrote for an internal business tool.
- * Proprietary names, endpoints, identifiers, sample data, and environment-specific
- * values have been replaced with generic equivalents.
+ * This is a sanitized public sample based on code I originally wrote for an internal
+ * business application. Proprietary names, credentials, endpoints, identifiers, and
+ * business-specific values have been replaced with generic equivalents.
+ *
+ * Key concepts demonstrated:
+ * - PHP/MySQL integration
+ * - form and server-side validation
+ * - authenticated-user tracking
+ * - AJAX/dynamic lookup behavior
+ * - audit fields and searchable records
  */
-
-/*
- SANITIZED CODE SAMPLE
- Internal system names, table names, identifiers, client references, and endpoints
- have been replaced with generic placeholders for external review.
-*/
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

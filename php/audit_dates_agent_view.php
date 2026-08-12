@@ -1,15 +1,19 @@
 <?php
 /*
  * Audit Dates Agent View
- * Backend endpoint that retrieves audit-related records for display in an internal web interface.
+ * Retrieves audit-related records and returns data for display in an internal web interface.
  *
  * Portfolio note:
- * This public sample is based on code I originally wrote for an internal business tool.
- * Proprietary names, endpoints, identifiers, sample data, and environment-specific
- * values have been replaced with generic equivalents.
+ * This is a sanitized public sample based on code I originally wrote for an internal
+ * business application. Proprietary names, credentials, endpoints, identifiers, and
+ * business-specific values have been replaced with generic equivalents.
+ *
+ * Key concepts demonstrated:
+ * - PHP server-side processing
+ * - SQL data retrieval
+ * - JSON/dynamic response handling
+ * - backend-to-frontend integration
  */
-
- // ini_set('display_errors', 1);
 ?>
 
 <?php include ("DATABASE_CONFIG.php");?>

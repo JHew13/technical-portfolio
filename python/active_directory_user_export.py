@@ -1,30 +1,17 @@
 # Active Directory User Export
-# Retrieves directory user data and transforms it into a structured output for reporting.
+# Retrieves directory user data and transforms it into structured output for reporting.
 #
-# Portfolio note: This public sample is based on code I originally wrote for an
-# internal business tool. Proprietary names, endpoints, identifiers, sample data,
-# and environment-specific values have been replaced with generic equivalents.
-# SANITIZED COPY: credentials, internal server/domain names, database identifiers,
-# and Active Directory distinguished names have been replaced with placeholders.
-# Original code structure and formatting have otherwise been preserved.
+# Portfolio note:
+# This is a sanitized public sample based on code I originally wrote for an internal
+# business tool. Proprietary names, credentials, endpoints, identifiers, and business-
+# specific values have been replaced with generic equivalents.
+#
+# Key concepts demonstrated:
+# - Active Directory / LDAP integration
+# - SQL database connectivity
+# - pandas-based transformation
+# - multi-directory data collection
 
-#---List of installs by cmd prompt
-#---pip install sqlalchemy
-#---pip install numpy
-#---pip install pyodbc
-#---pip install ldap3
-#---pip install pandas
-
-#Official documentations
-#---pip (python package manager) documentation: https://pip.pypa.io/en/stable/installing/#id7
-#---pandas: https://pandas.pydata.org/
-#---sqlalchemy: https://www.sqlalchemy.org/
-#---ldap3: https://ldap3.readthedocs.io/
-#---numpy: https://numpy.org/
-#---pyodbc: https://www.easysoft.com/developer/languages/python/pyodbc.html
-
-
-#--imports for code to function properly DO NOT DELETE---
 import sys
 from datetime import datetime
 import time
@@ -75,36 +62,36 @@ mytz = get_localzone()
 #---define server information---
 xray_data=[]
 innovate_data=[]
-carecore_data=[]
+directory_data=[]
 list1=[]
 
 def All_AD_USERS():
 
      csv.field_size_limit(100000000)
      csv.field_size_limit()
-     print('processing carecore data...')
+     print('processing directory data...')
         #connection credentials to LDAP server
-     server_name_carecore = '<LDAP_SERVER_CARECORE>'
+     server_name_directory = '<LDAP_SERVER_CARECORE>'
      domain_name = '<DOMAIN>'
      user_name = '<USERNAME>'
-     password = '<YOUR_PASSWORD>'
+     password = '<PASSWORD>'
 
-     carecore_server = Server(server_name_carecore, get_info=ALL)
+     directory_server = Server(server_name_directory, get_info=ALL)
      #---connect to ldap with pre-defined variables---
-     carecore_conn = Connection(carecore_server, user='{}\\{}'.format(domain_name, user_name), password=password, authentication=NTLM,auto_bind=True,return_empty_attributes=False)
+     directory_conn = Connection(directory_server, user='{}\\{}'.format(domain_name, user_name), password=password, authentication=NTLM,auto_bind=True,return_empty_attributes=False)
 
-     carecore_conn_search = carecore_conn.extend.standard.paged_search(search_base='<CARECORE_SEARCH_BASE>',
+     directory_conn_search = directory_conn.extend.standard.paged_search(search_base='<CARECORE_SEARCH_BASE>',
                                                   search_filter= '(&(objectCategory=user))',
                                                   attributes=['userPrincipalName','employeeID','telephoneNumber','mail','mailNickname','cn','department','extensionAttribute9','primaryGroupID','sn']
 
                                                   )
           #---For loop to loop through results---
-     for entry in carecore_conn_search:
-          carecore_data.append(entry['attributes'])
+     for entry in directory_conn_search:
+          directory_data.append(entry['attributes'])
           #---set retrieved list data to pandas dataframe---
-     df_carecore = pd.DataFrame(data=carecore_data)
+     df_directory = pd.DataFrame(data=directory_data)
 
-     df_carecore
+     df_directory
 
 
      print('Processing all XRAY AD-Users under Innovate Server')
@@ -159,7 +146,7 @@ def All_AD_USERS():
 
      #____________________________________________________________________Join data frames for xray and innovate____________________________________________________________________
      #df_ad_users = pd.merge(df_xray,df_innovate,left_on='userPrincipalName')
-     df3=df_innovate.append([df_xray,df_carecore])
+     df3=df_innovate.append([df_xray,df_directory])
      print('...Combining Data')
 
      #____________________________________________________________________save CSV data____________________________________________________________________
@@ -206,7 +193,7 @@ def innovate_insert():
      server_name = '<LDAP_SERVER_<DOMAIN>_2>'
      domain_name = '<DOMAIN>'
      user_name = '<USERNAME>'
-     password = '<YOUR_PASSWORD>'
+     password = '<PASSWORD>'
      server = Server(server_name, get_info=ALL)
      #---connect to ldap with pre-defined variables---
      conn = Connection(server, user='{}\\{}'.format(domain_name, user_name), password=password, authentication=NTLM,auto_bind=True,return_empty_attributes=False)
@@ -240,7 +227,7 @@ def xray_insert():
      server_name = '<LDAP_SERVER_XRAY_2>'
      domain_name = '<DOMAIN>'
      user_name = '<USERNAME>'
-     password = '<YOUR_PASSWORD>'
+     password = '<PASSWORD>'
      server = Server(server_name, get_info=ALL)
      #---connect to ldap with pre-defined variables---
      conn = Connection(server, user='{}\\{}'.format(domain_name, user_name), password=password, authentication=NTLM,auto_bind=True,return_empty_attributes=False)
@@ -268,34 +255,34 @@ def xray_insert():
      return
 #call xray function
 #^^^^^^^^^^^^^^xray_insert()^^^^^^^^^^^^^^^^^^^^^^^^^
-def carecore_insert():
-     print('processing carecore data...')
+def directory_insert():
+     print('processing directory data...')
         #connection credentials to LDAP server
-     server_name_carecore = '<LDAP_SERVER_CARECORE>'
+     server_name_directory = '<LDAP_SERVER_CARECORE>'
 
-     carecore_server = Server(server_name, get_info=ALL)
+     directory_server = Server(server_name, get_info=ALL)
      #---connect to ldap with pre-defined variables---
-     carecore_conn = Connection(carecore_server, user='{}\\{}'.format(domain_name, user_name), password=password, authentication=NTLM,auto_bind=True,return_empty_attributes=False)
+     directory_conn = Connection(directory_server, user='{}\\{}'.format(domain_name, user_name), password=password, authentication=NTLM,auto_bind=True,return_empty_attributes=False)
 
-     carecore_conn_search = carecore_conn.extend.standard.paged_search(search_base='<CARECORE_GROUP_SEARCH_BASE>',
+     directory_conn_search = directory_conn.extend.standard.paged_search(search_base='<CARECORE_GROUP_SEARCH_BASE>',
                                                   search_filter= '(&(objectClass=user)(objectClass=person)(memberOf=<ALL_EMPLOYEES_GROUP>))',
                                                   attributes=['userPrincipalName','employeeID','telephoneNumber','mail','mailNickname','cn','department','extensionAttribute9','primaryGroupID','sn']
 
                                                   )
           #---For loop to loop through results---
-     for entry in carecore_conn_search:
+     for entry in directory_conn_search:
                list1.append(entry['attributes'])
           #---set retrieved list data to pandas dataframe---
      df = pd.DataFrame(data=list1)
           #---save data to csv file setting properties---
           #---df.to_csv('table_name',seperator)--
-     df.to_csv('ad_insert_carecore.csv', sep=',',header=True,index=False)
+     df.to_csv('ad_insert_directory.csv', sep=',',header=True,index=False)
           #---set df_insert variable to read the saved csv---
-     df_insert = pd.read_csv('ad_insert_carecore.csv')
+     df_insert = pd.read_csv('ad_insert_directory.csv')
           #---set the index to first column holding data---
      df_insert.set_index('accountExpires')
           #---send the data to sql ***if exists: "append" to add rows or you can use "replace" to drop existing data***---
-     df_insert.to_sql('tbl_ad_users_carecore', con=engine, if_exists='replace',index=False)
+     df_insert.to_sql('tbl_ad_users_directory', con=engine, if_exists='replace',index=False)
 
      print ('Succesfully inserted innovate AD data into the specified database!')
      return
@@ -305,7 +292,7 @@ def io_crosstrain():
      server_name = '<LDAP_SERVER_<DOMAIN>_2>'
      domain_name = '<DOMAIN>'
      user_name = '<USERNAME>'
-     password = '<YOUR_PASSWORD>'
+     password = '<PASSWORD>'
      server = Server(server_name, get_info=ALL)
      #---connect to ldap with pre-defined variables---
      conn = Connection(server, user='{}\\{}'.format(domain_name, user_name), password=password, authentication=NTLM,auto_bind=True,return_empty_attributes=False)
@@ -352,8 +339,8 @@ def io_crosstrain():
      print ('Succesfully inserted image one cross trained agents into the specified database!')
      return
 #io_crosstrain();
-#call carecore function
-#carecore_insert();
+#call directory function
+#directory_insert();
 def All_Innovate():
      csv.field_size_limit(100000000)
      csv.field_size_limit()
@@ -362,7 +349,7 @@ def All_Innovate():
      server_name = '<LDAP_SERVER_<DOMAIN>_2>'
      domain_name = '<DOMAIN>'
      user_name = '<USERNAME>'
-     password = '<YOUR_PASSWORD>'
+     password = '<PASSWORD>'
      server = Server(server_name, get_info=ALL)
      #---connect to ldap with pre-defined variables---
      conn = Connection(server, user='{}\\{}'.format(domain_name, user_name), password=password, authentication=NTLM,auto_bind=True,return_empty_attributes=False)

@@ -1,51 +1,24 @@
-# Ruleset ETL - Excel/Data Import
-# Processes ruleset data from source files and prepares it for structured storage and analysis.
+# Ruleset File-to-Database ETL
+# Reads ruleset source files, transforms them with pandas, and loads refreshed tables into SQL Server.
 #
-# Portfolio note: This public sample is based on code I originally wrote for an
-# internal business tool. Proprietary names, endpoints, identifiers, sample data,
-# and environment-specific values have been replaced with generic equivalents.
-# SANITIZED PORTFOLIO COPY
-# Internal server names, database names, network paths, and domain information
-# have been replaced with generic placeholders. Core program logic is unchanged.
+# Portfolio note:
+# This is a sanitized public sample based on code I originally wrote for an internal
+# business tool. Proprietary names, credentials, endpoints, identifiers, and business-
+# specific values have been replaced with generic equivalents.
+#
+# Key concepts demonstrated:
+# - ETL-style file ingestion
+# - CSV/Excel processing
+# - pandas transformation
+# - SQLAlchemy database loading
 
-#Install python from website
-#---https://www.python.org/downloads/  (I am using python 2.7 I am not sure if this will work with the latest)
-#---Warning: Python is extremely picky with placement of code. Spaces and tabs could cause errors.
-
-#---List of installs by cmd prompt
-#---pip install sqlalchemy
-#---pip install numpy
-#---pip install pyodbc
-#---pip install ldap3
-#---pip install pandas
-
-#Official documentations
-#---pip (python package manager) documentation: https://pip.pypa.io/en/stable/installing/#id7
-#---pandas: https://pandas.pydata.org/
-#---sqlalchemy: https://www.sqlalchemy.org/
-#---ldap3: https://ldap3.readthedocs.io/
-#---numpy: https://numpy.org/
-#---pyodbc: https://www.easysoft.com/developer/languages/python/pyodbc.html
-
-#---adding different directories
-#---You have to create a new instance with light weight active direcotry services.
-#---Use nltest /dclist:example.local in cmd prompt, change example.local to any other domain you need listed.. This will provide you with a list of domain controllers.
-#---Then type nslookup & press enter Then type set type=all
-#---Then type this and change domainname.com to match one of the servers above _ldap._tcp.dc._msdcs.example.local
-#--- example _ldap._tcp.dc.__msdcs.example.local
-
-#--------------------***TO RUN PROGRAM*** Open cmd prompt and type: python ruleset_import_to_DB.py if all above was installed correctly then no errors will display in the cmd screen.
-
-#--imports for code to function properly DO NOT DELETE---
-
- 
 import os
 import pandas as pd
 import sqlalchemy as sa
 import glob
 
  
-def goldcard_ruleset():
+def import_ruleset_files():
    
     engine = sa.create_engine('mssql+pyodbc://SQL_SERVER_NAME/RULESET_DATABASE?driver=SQL Server Native Client 11.0')
     pd.set_option('large_repr', 'info')
@@ -56,7 +29,7 @@ def goldcard_ruleset():
    # path=('M:\\Program Ops Support Services\\Business Pathways\\Rulesets')
     #listOfFiles = glob.glob(path + "/*.csv")
     #print (listOfFiles)
-    directory = (r'\\NETWORK_SERVER\\SharedData\\Business\\Rulesets')
+    directory = (r'C:\example\data\rulesets')
     listOfFiles = os.listdir(directory)
     li=[]
     print ("moving rulesets, please wait")
@@ -227,6 +200,6 @@ def table_transfer():
   
 
 #other_ruleset(); #manual file search and upload
-goldcard_ruleset();     #auto file search and upload of whole directory    
-#table_transfer(); goldcard_ruleset();    
+import_ruleset_files();     #auto file search and upload of whole directory    
+#table_transfer(); import_ruleset_files();    
 

@@ -1,9 +1,17 @@
-# Ruleset ETL - Column Extraction
-# Extracts ruleset data, selects and transforms useful fields, and prepares structured output.
+# Ruleset Grid Search Automation
+# Automates a dynamic web grid, searches selected values, and exports matching data.
 #
-# Portfolio note: This public sample is based on code I originally wrote for an
-# internal business tool. Proprietary names, endpoints, identifiers, sample data,
-# and environment-specific values have been replaced with generic equivalents.
+# Portfolio note:
+# This is a sanitized public sample based on code I originally wrote for an internal
+# business tool. Proprietary names, credentials, endpoints, identifiers, and business-
+# specific values have been replaced with generic equivalents.
+#
+# Key concepts demonstrated:
+# - Selenium browser automation
+# - dynamic/virtualized grid handling
+# - stale-element recovery
+# - Excel output and data validation
+
 def scrape_range(start_index, end_index):
 
     from selenium import webdriver
